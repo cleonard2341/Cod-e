@@ -2,6 +2,13 @@
 
 A powerful esoteric programming language inspired by Brainfuck, featuring ~300 commands for memory manipulation, arithmetic, bitwise operations, stack operations, functions, and string handling.
 
+## Support
+
+If you find this project useful, consider supporting its development:
+
+- [Buy Me a Coffee](https://buymeacoffee.com/brody4321)
+- [Ko-fi](https://ko-fi.com/brody4321)
+
 ## Building
 
 ### Prerequisites
