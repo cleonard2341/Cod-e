@@ -1,0 +1,17 @@
+# Simple recursive test
+# Use cell 0 for counter, cell 1 for space character
+def countdown
+  >0 :n        # Print current number from cell 0
+  >1 =32 .     # Print space from cell 1 (preserve cell 0)
+  >0 --        # Back to cell 0, decrement
+  i2           # If zero, skip 2 commands (call + ret), go to base-case-ret
+  call countdown
+  ret          # Return after recursive call
+  ret          # Return if zero (base case, jumped here by i2)
+end
+
+>0 =3
+call countdown
+=10 .
+=68 . =79 . =78 . =69 .  # DONE
+=10 .

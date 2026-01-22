@@ -1,0 +1,47 @@
+# Test functions (def, call, ret, end)
+
+=70 . =85 . =78 . =67 . =58 . =32 .  # "FUNC: "
+
+# Define a simple function that prints 'X'
+def print_x
+  =88 .   # Print 'X'
+  ret
+end
+
+# Define a function that prints 'Y' then calls print_x
+def print_yx
+  =89 .      # Print 'Y'
+  call print_x
+  ret
+end
+
+# Define a function that uses current cell value
+def print_cell
+  .          # Print current cell as char
+  ret
+end
+
+# Main program
+call print_x       # Should print 'X'
+call print_yx      # Should print 'YX'
+=65 call print_cell  # Should print 'A' (65)
+
+=32 .              # Space
+
+# Test recursive call (countdown from 5 to 1)
+def countdown
+  >0 :n        # Print current number from cell 0
+  >1 =32 .     # Print space from cell 1 (preserve cell 0)
+  >0 --        # Back to cell 0, decrement
+  i2           # If zero, skip 2 commands (call + ret), go to base-case-ret
+  call countdown
+  ret          # Return after recursive call
+  ret          # Return if zero (base case)
+end
+
+>0 =5
+call countdown     # Should print "5 4 3 2 1 "
+
+=10 .
+=80 . =65 . =83 . =83 .  # PASS
+=10 .

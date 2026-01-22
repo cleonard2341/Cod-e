@@ -1,0 +1,72 @@
+# Test utility operations
+# Expected: verify swap, copy, move, random, and register ops
+
+=85 . =84 . =73 . =76 . =58 . =32 .  # "UTIL: "
+
+# Test cp (copy cell to register) and pt (paste register to cell)
+>0 =65      # ptr=0, Cell 0 = 'A' (65)
+cp          # Register = 65
+>1          # ptr=1
+pt          # Cell 1 = 65
+.           # Print 'A'
+
+# Test cr (clear register)
+cr          # Register = 0
+>1          # ptr=2
+pt          # Cell 2 = 0
+:n          # Print "0"
+
+=32 .       # Space
+
+# Test sw (swap current cell with next cell)
+>0 =1       # ptr=0, Cell 0 = 1
+>1 =2       # ptr=1, Cell 1 = 2
+>0 sw       # ptr=0, Swap: cell 0 = 2, cell 1 = 1 (>0 goes to cell 0)
+:n =32 .    # Print "2"
+>1 :n =32 . # ptr=1, Print "1"
+
+# Test sw1-sw9 (swap with cell at offset)
+>0 =10      # ptr=0, Cell 0 = 10
+>3 =30      # ptr=3, Cell 3 = 30
+>0 sw3      # ptr=0, Swap cell 0 with cell 3: cell 0 = 30, cell 3 = 10
+:n =32 .    # Print "30"
+>3 :n =32 . # ptr=3, Print "10"
+
+# Test c1-c9 (copy current cell TO cell at offset)
+>0 =50      # ptr=0, Cell 0 = 50
+c2          # Copy cell 0 to cell 2: cell 2 = 50
+>2 :n =32 . # ptr=2, Print "50" from cell 2
+>0 :n =32 . # ptr=0, Cell 0 still "50"
+
+# Test mv1-mv9 (move: copy to offset and clear source)
+>0 =99      # ptr=0, Cell 0 = 99
+mv1         # Move cell 0 to cell 1: cell 1 = 99, cell 0 = 0
+:n =32 .    # Print "0" (source cleared), ptr still 0
+>1 :n =32 . # ptr=1, Print "99" (destination has value)
+
+# Test rv (reverse bits)
+>0 =1       # ptr=0, 00000001
+rv          # 10000000 = 128
+:n =32 .
+
+>0 =128     # ptr=0, 10000000
+rv          # 00000001 = 1
+:n =32 .
+
+# Test rnd (random) - just verify it doesn't crash
+>0 =0
+rnd         # Random value
+>0 =42      # Overwrite for predictable output
+:n =32 .    # Print "42"
+
+# Test nop (no operation) - should do nothing
+>0 =77
+nop
+:n =32 .    # Still "77"
+
+# Test hlt (halt) - put at end
+=10 .
+=80 . =65 . =83 . =83 .  # PASS
+=10 .
+hlt         # Stop execution
+=70 . =65 . =73 . =76 .  # FAIL - should not print

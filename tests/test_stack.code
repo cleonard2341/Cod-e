@@ -1,0 +1,45 @@
+# Test stack operations
+# Expected: push/pop values correctly
+
+=83 . =84 . =65 . =67 . =75 . =58 . =32 .  # "STACK: "
+
+# Test ps (push cell) and pp (pop cell)
+>0 =42
+ps            # Push 42
+=0            # Clear cell
+pp            # Pop back
+:n =32 .      # Should print 42
+
+# Test multiple push/pop (LIFO order)
+>0 =1 ps      # Push 1
+>0 =2 ps      # Push 2
+>0 =3 ps      # Push 3
+pp :n =32 .   # Pop 3
+pp :n =32 .   # Pop 2
+pp :n =32 .   # Pop 1
+
+# Test pr (push register) and sr (pop to register)
+>0 =99 cp     # Register = 99
+pr            # Push register
+cr            # Clear register
+sr            # Pop to register
+:r =32 .      # Print register (should be 99... but :r prints as char)
+
+# Test sp (swap top two stack items)
+>0 =10 ps     # Push 10
+>0 =20 ps     # Push 20
+sp            # Swap: now 10 on top, 20 below
+pp :n =32 .   # Pop 10
+pp :n =32 .   # Pop 20
+
+# Test p1-p9 (push literal)
+p5            # Push 5
+pp :n =32 .   # Pop and print 5
+
+# Test sc (clear stack) - push some, clear, verify empty behavior
+>0 =1 ps >0 =2 ps
+sc            # Clear stack
+
+=10 .
+=80 . =65 . =83 . =83 .  # PASS
+=10 .

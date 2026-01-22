@@ -1,0 +1,8 @@
+# Test loop: count down from 5 and print each number
+=5        # cell 0 = 5
+[         # while cell 0 != 0
+  :n      # print number
+  >1 =32 . <1  # move to cell 1, print space, move back
+  --      # decrement cell 0
+]
+=10 .     # newline

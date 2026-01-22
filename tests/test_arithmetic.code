@@ -1,0 +1,42 @@
+# Test arithmetic operations
+# Expected output: All results should match expected values
+
+=10 =43 . =58 . =32 .  # "+: "
+
+# Test ++ (increment)
+>0 =5 ++ :n =32 .      # 5+1 = 6
+
+# Test -- (decrement)
+>0 =10 -- :n =32 .     # 10-1 = 9
+
+# Test +N (add N)
+>0 =10 +5 :n =32 .     # 10+5 = 15
+
+# Test -N (subtract N)
+>0 =20 -7 :n =32 .     # 20-7 = 13
+
+# Test +a (add register)
+>0 =10 cp >1 =5 +a :n =32 .  # 5+10 = 15
+
+# Test -a (subtract register)
+>0 =3 cp >1 =10 -a :n =32 .  # 10-3 = 7
+
+=10 . =42 . =58 . =32 .  # newline, "*: "
+
+# Test m* (multiply by register)
+>0 =4 cp >1 =5 m* :n =32 .   # 5*4 = 20
+
+# Test m1-m9 (multiply by N)
+>0 =7 m3 :n =32 .            # 7*3 = 21
+
+=10 . =47 . =58 . =32 .  # newline, "/: "
+
+# Test d/ (divide by register)
+>0 =4 cp >1 =20 d/ :n =32 .  # 20/4 = 5
+
+# Test d1-d9 (divide by N)
+>0 =24 d3 :n =32 .           # 24/3 = 8
+
+=10 .
+=80 . =65 . =83 . =83 .  # PASS
+=10 .
