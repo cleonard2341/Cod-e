@@ -1,0 +1,44 @@
+# Test string operations (sout, slen, sin)
+
+=83 . =84 . =82 . =58 . =32 .  # "STR: "
+
+# Test sout - print a string
+# First, manually set up "Hi!" at cells 0-3 (using >0 for absolute, >1 for relative)
+>0 =72      # Cell 0 = 'H', ptr=0
+>1 =105     # Cell 1 = 'i' (move right 1), ptr=1
+>1 =33      # Cell 2 = '!' (move right 1), ptr=2
+>1 =0       # Cell 3 = null (move right 1), ptr=3
+>0 sout     # Go to cell 0, print "Hi!"
+
+=32 .       # Space
+
+# Test slen - get string length
+>0 slen     # Should set register to 3 (length of "Hi!")
+>1 pt       # Move right 1 to cell 1, paste register
+:n          # Print "3" (we're at cell 1)
+
+=32 .       # Space
+
+# Set up "Hello" starting at cell 10
+>0          # Go to cell 0
+>9 >1       # Move right 10 total to cell 10
+=72         # Cell 10 = 'H'
+>1 =101     # Cell 11 = 'e'
+>1 =108     # Cell 12 = 'l'
+>1 =108     # Cell 13 = 'l'
+>1 =111     # Cell 14 = 'o'
+>1 =0       # Cell 15 = null
+<5          # Move left 5 to cell 10
+slen        # Length = 5
+>9 >1 pt    # Move to cell 20, paste register
+:n          # Print "5"
+
+=32 .       # Space
+
+# Print the hello string
+>0 >9 >1    # Go to cell 10
+sout        # Should print "Hello"
+
+=10 .
+=80 . =65 . =83 . =83 .  # PASS
+=10 .

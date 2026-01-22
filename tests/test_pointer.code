@@ -1,0 +1,36 @@
+# Test pointer movements
+# Expected output: PASS
+
+# Test >0 (go to cell 0)
+>0 =65    # Cell 0 = 'A'
+
+# Test >1 through >9 (move right by N)
+>1 =66    # Cell 1 = 'B'
+>1 =67    # Cell 2 = 'C'
+>2 =68    # Cell 4 = 'D'
+>5 =69    # Cell 9 = 'E'
+
+# Test <1 through <9 (move left by N)
+<1 =70    # Cell 8 = 'F'
+<3 =71    # Cell 5 = 'G'
+
+# Test >0 again to reset
+>0 .      # Print 'A'
+
+# Test sequential >1 movements
+>1 .      # Print 'B' (cell 1)
+>1 .      # Print 'C' (cell 2)
+
+# Test >a (move right by register amount)
+>0 =3 cp  # Cell 0 = 3, register = 3
+>1        # Go to cell 1
+>a .      # Move right by 3 (to cell 4), print 'D'
+
+# Test <a (move left by register amount)
+=2 cp     # Set register = 2
+<a .      # Move left by 2 (to cell 2), print 'C'
+
+# Print newline and PASS
+=10 .
+=80 . =65 . =83 . =83 .  # PASS
+=10 .

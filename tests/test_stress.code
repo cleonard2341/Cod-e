@@ -1,0 +1,81 @@
+# Stress Test Suite for Cod-e Language
+# Tests memory, loops, recursion, and edge cases
+
+=83 . =84 . =82 . =69 . =83 . =83 . =58 . =32 .  # "STRESS: "
+
+# Test 1: Large loop (100 iterations)
+>0 =100     # Counter
+>1 =42      # '*' character
+[
+  >1 .      # Print '*'
+  >0 --     # Decrement
+]
+=32 .       # Space
+
+# Test 2: Large memory movement
+>0 =255     # Move to cell 255
+>0 >9 >9 >9 >9 >9 >9 >9 >9 >9 >9  # Move right 90 positions
+>9 >9 >9 >9 >9 >9 >9 >9 >9 >9      # Move another 90 (total 180)
+>9 >9 >9 >9 >9 >9 >9               # Move another 63 (total 243)
+=65                                 # Set to 'A'
+.                                   # Print 'A'
+>0                                  # Back to cell 0
+
+=32 .       # Space
+
+# Test 3: Nested loops (3 levels deep) - print a small grid
+# Use cell 0 for rows, cell 1 for cols, cell 2 for char, cell 3 for newline
+>2 =35      # Cell 2 = '#'
+>1 =10      # Cell 3 = newline
+>0 =3       # Cell 0 = 3 rows, ptr=0
+[           # Outer loop (rows)
+  >1 =5     # ptr=1, Cell 1 = 5 cols
+  [         # Inner loop (cols)
+    >1 .    # ptr=2, Print '#'
+    <1 --   # ptr=1, Decrement column counter
+  ]
+  >1 >1 .   # ptr=3, Print newline
+  >0 --     # ptr=0, Decrement row counter
+]
+
+# Test 4: Recursion depth test (countdown from 10)
+def deep_count
+  >0 :n        # Print current number
+  >1 =32 .     # Print space
+  >0 --        # Decrement
+  i2           # If zero, skip call and ret
+  call deep_count
+  ret
+  ret          # Base case return
+end
+
+>0 =10
+call deep_count  # Should print "10 9 8 7 6 5 4 3 2 1 "
+=32 .
+
+# Test 5: Stack stress (push many values, pop all)
+>0 =1 ps
+>0 =2 ps
+>0 =3 ps
+>0 =4 ps
+>0 =5 ps
+>0 =6 ps
+>0 =7 ps
+>0 =8 ps
+>0 =9 ps
+>0 =10 ps
+# Pop all (LIFO order)
+pp :n =32 .  # 10
+pp :n =32 .  # 9
+pp :n =32 .  # 8
+pp :n =32 .  # 7
+pp :n =32 .  # 6
+pp :n =32 .  # 5
+pp :n =32 .  # 4
+pp :n =32 .  # 3
+pp :n =32 .  # 2
+pp :n =32 .  # 1
+
+=10 .
+=80 . =65 . =83 . =83 .  # PASS
+=10 .

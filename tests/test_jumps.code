@@ -1,0 +1,61 @@
+# Test jump and conditional commands
+
+=74 . =85 . =77 . =80 . =58 . =32 .  # "JUMP: "
+
+# Test if0 (skip next command if zero)
+>0 =0
+if0 j1      # Cell is 0, skip j1
+=65 .       # Print 'A'
+
+>0 =1
+if0 j1      # Cell is 1, don't skip j1, so j1 executes and skips =66
+=66 .       # Skipped
+=67 .       # Print 'C'
+
+=32 .
+
+# Test ifn (skip next command if non-zero)
+>0 =5
+ifn j1      # Cell is non-zero, skip j1
+=68 .       # Print 'D'
+
+>0 =0
+ifn j1      # Cell is zero, don't skip, j1 executes
+=69 .       # Skipped by j1
+=70 .       # Print 'F'
+
+=32 .
+
+# Test j2 (jump forward 2 commands if non-zero)
+>0 =1
+j2          # Jump over next 2 commands
+=71 .       # Skipped
+=72 .       # Print 'H'
+
+=32 .
+
+# Test loops with [ ] - use different cells for counter vs output
+>1 =42      # Cell 1 = '*'
+>0 =3       # Cell 0 = counter
+[
+  >1 .      # Print '*' from cell 1
+  >0 --     # Back to cell 0, decrement
+]
+
+=32 .
+
+# Test nested loops - use relative moves correctly
+>0 =35      # Cell 0 = '#' character
+>1 =2       # Cell 1 = outer counter (move right 1)
+[
+  >1 =2     # Cell 2 = inner counter (move right 1)
+  [
+    <2 .    # Back to cell 0, print '#' (move left 2)
+    >2 --   # Back to cell 2, decrement inner (move right 2)
+  ]
+  <1 --     # Back to cell 1, decrement outer (move left 1)
+]
+
+=10 .
+=80 . =65 . =83 . =83 .  # PASS
+=10 .

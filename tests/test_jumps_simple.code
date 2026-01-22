@@ -1,0 +1,7 @@
+# Simple jump test
+>0 =1      # Non-zero
+j1 =88 .   # Should skip =88, but =88 still parsed as one command
+=65 .      # Print 'A'
+=10 .
+=80 . =65 . =83 . =83 .  # PASS
+=10 .

@@ -1,0 +1,47 @@
+# Test bitwise operations
+# Expected: specific bit manipulation results
+
+=38 . =58 . =32 .  # "&: "
+
+# Test &r (AND with register)
+>0 =15 cp >1 =12 &r :n =32 .   # 12 & 15 = 12 (1100 & 1111 = 1100)
+
+# Test &1-&9 (AND with N)
+>0 =255 &7 :n =32 .            # 255 & 7 = 7
+
+=10 . =124 . =58 . =32 .  # newline, "|: "
+
+# Test |r (OR with register)
+>0 =8 cp >1 =4 |r :n =32 .     # 4 | 8 = 12 (0100 | 1000 = 1100)
+
+=10 . =94 . =58 . =32 .  # newline, "^: "
+
+# Test ^r (XOR with register)
+>0 =15 cp >1 =9 ^r :n =32 .    # 9 ^ 15 = 6 (1001 ^ 1111 = 0110)
+
+# Test x1-x9 (XOR with cell at offset)
+>0 =10 >1 =7
+>0 x1 :n =32 .                 # 10 ^ 7 = 13
+
+=10 . =60 . =60 . =58 . =32 .  # newline, "<<: "
+
+# Test <<1-<<8 (left shift)
+>0 =1 <<1 :n =32 .             # 1 << 1 = 2
+>0 =1 <<4 :n =32 .             # 1 << 4 = 16
+>0 =3 <<2 :n =32 .             # 3 << 2 = 12
+
+=10 . =62 . =62 . =58 . =32 .  # newline, ">>: "
+
+# Test >>1->>8 (right shift)
+>0 =16 >>1 :n =32 .            # 16 >> 1 = 8
+>0 =255 >>4 :n =32 .           # 255 >> 4 = 15
+
+=10 . =126 . =58 . =32 .  # newline, "~: "
+
+# Test ~c (NOT/complement)
+>0 =0 ~c :n =32 .              # ~0 = 255
+>0 =255 ~c :n =32 .            # ~255 = 0
+
+=10 .
+=80 . =65 . =83 . =83 .  # PASS
+=10 .
